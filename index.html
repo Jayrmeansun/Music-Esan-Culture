@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เครื่องดนตรีอีสาน</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #F5F5DC; /* สีครีมเป็นพื้นหลัง */
+      font-family: 'TH Sarabun New', sans-serif;
+    }
+    .instrument-card {
+      transition: transform 0.3s;
+    }
+    .instrument-card:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-[#8B4513] text-white py-6 text-center">
+    <h1 class="text-4xl font-bold">เครื่องดนตรีอีสาน</h1>
+    <p class="mt-2 text-lg">สำรวจมรดกทางวัฒนธรรมผ่านเสียงดนตรีแห่งอีสาน</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Instrument Card Example (พิณ) -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="Pic/phin.jpg" alt="พิณ" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('phin')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">พิณ</h2>
+        <p class="text-gray-700 mt-2">เป็นเครื่องดนตรีที่บรรเลงด้วยการดีด มี ๒-๓ สาย แต่ขึ้นเป็นสองคู่ โดยขึ้นคู่ ๕ ดีดเป็นทำนองเพลง ตัว พิณและคันทวนนิยมแกะด้วยไม้ชิ้นเดียวกัน มีนมสำหรับตั้งเสียง สายพิณนิยมทำด้วยโลหะ โดยเฉพาะสายลวดเบรคจักรยาน ที่ดีดนิยมทำด้วยขาสัตว์แบนๆ เหลาให้บางพอที่จะดีด สะบัดได้</p>
+      </div>
+
+      <!-- Instrument Card Example (โหวด) -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="Pic/wode.jpg" alt="โหวด" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('wot')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">โหวด</h2>
+        <p class="text-gray-700 mt-2">
+โหวด เป็นเครื่องเป่าชนิดหนึ่งที่ไม่มีลิ้น เกิดจากกระแสลมที่เป่าผ่านไม้รวกหรือไม้ เฮี้ย (ไม้กู่แคน) หรือไม้ไผ่ ด้านรู เปิดของตัวโหวดทำด้วยไม้รวกขนาดเล็ก สั้น ยาว (เรียงลำดับตามความสูงต่ำของเสียง) ติด อยู่รอบกระบอกไม้ไผ่ที่ใช้เป็นแกนกลาง ติดไว้ด้วยขี้สูด มีจำนวน ๖-๙ เลา ความ ยาวประมาณ ๒๕ เซนติเมตร เวลาเป่าจะหมุนไปรอบๆ ตามเสียงที่ต้องการ</p>
+      </div>
+
+      <!-- Instrument Card Example (แคน) -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="assets/images/khaen.jpg" alt="แคน" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('khaen')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">แคน</h2>
+        <p class="text-gray-700 mt-2">แคนเป็นเครื่องดนตรีเป่าลมที่ทำจากไม้ไผ่ มีเสียงที่เป็นเอกลักษณ์และเป็นสัญลักษณ์ของวัฒนธรรมอีสาน</p>
+      </div>
+
+      <!-- เพิ่มเครื่องดนตรีอื่นๆ อีก 8 ชนิดในลักษณะเดียวกัน -->
+      <!-- โปงลาง -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="assets/images/ponglang.jpg" alt="โปงลาง" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('ponglang')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">โปงลาง</h2>
+        <p class="text-gray-700 mt-2">โปงลางเป็นเครื่องดนตรีตีที่ทำจากไม้ มีเสียงที่สนุกสนาน ใช้ในงานรื่นเริง</p>
+      </div>
+
+      <!-- หืน -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="assets/images/sodoung.jpg" alt="หืน" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('sodoung')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">หืน</h2>
+        <p class="text-gray-700 mt-2">ซอด้วงเป็นเครื่องดนตรีสายที่มี 2 สาย เสียงนุ่มนวล ใช้ในหมอลำและเพลงพื้นบ้าน</p>
+      </div>
+
+      <!-- ซออู้ -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="assets/images/sou.jpg" alt="ซออู้" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('sou')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">ซออู้</h2>
+        <p class="text-gray-700 mt-2">ซออู้เป็นเครื่องดนตรีสายที่ให้เสียงทุ้มลึก ใช้ในการบรรเลงเพลงอีสาน</p>
+      </div>
+
+      <!-- กลองยาว -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="assets/images/longdrum.jpg" alt="กลองยาว" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('longdrum')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">กลองยาว</h2>
+        <p class="text-gray-700 mt-2">กลองยาวเป็นเครื่องดนตรีตีที่ใช้ในขบวนแห่และงานรื่นเริง มีเสียงดังก้องกังวาน</p>
+      </div>
+
+      <!-- กลองโทน -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="assets/images/tonedrum.jpg" alt="กลองโทน" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('tonedrum')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">กลองโทน</h2>
+        <p class="text-gray-700 mt-2">กลองโทนเป็นกลองที่มีเสียงทุ้ม ใช้ประกอบจังหวะในวงดนตรีอีสาน</p>
+      </div>
+
+      <!-- ฉิ่ง -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="assets/images/ching.jpg" alt="ฉิ่ง" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('ching')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">ฉิ่ง</h2>
+        <p class="text-gray-700 mt-2">ฉิ่งเป็นเครื่องดนตรีตีที่ทำจากโลหะ ใช้กำหนดจังหวะในวงดนตรี</p>
+      </div>
+
+      <!-- ฉาบ -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="assets/images/chap.jpg" alt="ฉาบ" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('chap')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">ฉาบ</h2>
+        <p class="text-gray-700 mt-2">ฉาบเป็นเครื่องดนตรีตีที่ทำจากโลหะ ให้เสียงแหลม ใช้ในวงดนตรีอีสาน</p>
+      </div>
+
+      <!-- ขลุ่ย -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
+        <div class="relative">
+          <img src="assets/images/flute.jpg" alt="ขลุ่ย" class="w-full h-48 object-cover rounded-t-lg">
+          <button onclick="playSound('flute')" class="absolute bottom-2 right-2 bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
+            เล่นเสียง
+          </button>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-[#8B4513]">ขลุ่ย</h2>
+        <p class="text-gray-700 mt-2">ขลุ่ยเป็นเครื่องดนตรีเป่าที่ทำจากไม้ไผ่ มีเสียงไพเราะและใช้ในเพลงพื้นบ้าน</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#8B4513] text-white text-center py-4 mt-auto">
+    <p>&copy; 2025 เครื่องดนตรีอีสาน. สร้างสรรค์เพื่ออนุรักษ์วัฒนธรรม.</p>
+  </footer>
+
+  <!-- JavaScript for Audio Playback -->
+  <script>
+    const audioFiles = {
+      phin: new Audio('Sound/phin_ne.mp3'),
+      wot: new Audio('Sound/wode.mp3'),
+      khaen: new Audio('sounds/kaen.mp3'),
+      ponglang: new Audio('sounds/ponglang.mp3'),
+      huen: new Audio('sounds/huen.mp3'),
+      sou: new Audio('assets/sounds/sou.mp3'),
+      longdrum: new Audio('assets/sounds/longdrum.mp3'),
+      tonedrum: new Audio('assets/sounds/tonedrum.mp3'),
+      ching: new Audio('assets/sounds/ching.mp3'),
+      chap: new Audio('assets/sounds/chap.mp3'),
+      flute: new Audio('assets/sounds/flute.mp3')
+    };
+
+    function playSound(instrument) {
+      // หยุดเสียงทั้งหมดก่อนเล่นเสียงใหม่
+      Object.values(audioFiles).forEach(audio => audio.pause());
+      audioFiles[instrument].currentTime = 0;
+      audioFiles[instrument].play();
+    }
+  </script>
+</body>
+</html>
