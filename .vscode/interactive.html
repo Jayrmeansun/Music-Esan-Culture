@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แสดงโมเดล 3D</title>
+  <style>
+    body { 
+      margin: 0; 
+      font-family: Arial, sans-serif; 
+      background-color: #ffffff; /* เปลี่ยนเป็นพื้นหลังสีขาว */
+    }
+    canvas { display: block; }
+    #modelSelector { 
+      position: absolute; 
+      top: 10px; 
+      left: 10px; 
+      padding: 5px; 
+      font-size: 16px; 
+      z-index: 1; 
+      background-color: rgba(255, 255, 255, 0.8); /* เพิ่มความโปร่งใสให้เลือกโมเดล */
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <select id="modelSelector" onchange="loadModel(this.value)">
+    <option value="" disabled selected>เลือกโมเดล</option>
+    <option value="https://jayrmeansun.github.io/3d-models/huen.glb">หืน (Huen)</option>
+    <option value="https://jayrmeansun.github.io/3d-models/kane.glb">แคน (Kane)</option>
+    <option value="https://jayrmeansun.github.io/3d-models/klongkantrum.glb">กลองกันตรึม (Klongkantrum)</option>
+    <option value="https://jayrmeansun.github.io/3d-msodels/pisalai.glb">ปี่สไล (Pi_Salai)</option>
+    <option value="https://jayrmeansun.github.io/3d-models/ponglang.glb">โปงลาง (Ponglang)</option>
+    <option value="https://jayrmeansun.github.io/3d-models/wode.glb">โหวด (Wode)</option>
+  </select>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script>
+    // สร้าง Scene, Camera และ Renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // เพิ่มแสงให้สว่างสำหรับนิทรรศการ
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // เพิ่มความเข้มแสง
+    scene.add(ambientLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0); // เพิ่มความเข้มแสง
+    directionalLight.position.set(0, 1, 1).normalize();
+    scene.add(directionalLight);
+
+    // เพิ่ม OrbitControls
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false;
+    controls.minDistance = 1;
+    controls.maxDistance = 10;
+
+    // ตั้งตำแหน่งเริ่มต้นของกล้อง
+    camera.position.z = 3; // ปรับให้ใกล้ขึ้นเพื่อแสดงโมเดลชัดเจน
+
+    let currentModel = null; // ตัวแปรเก็บโมเดลปัจจุบัน
+
+    // ฟังก์ชันโหลดโมเดล
+    const loader = new THREE.GLTFLoader();
+    function loadModel(url) {
+      // ลบโมเดลเก่าออก
+      if (currentModel) {
+        scene.remove(currentModel);
+      }
+
+      // โหลดโมเดลใหม่
+      loader.load(
+        url,
+        (gltf) => {
+          currentModel = gltf.scene;
+          scene.add(currentModel);
+
+          // ปรับขนาดและตำแหน่งให้อยู่ตรงกลาง
+          const box = new THREE.Box3().setFromObject(currentModel);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 2.0 / maxDim; // ปรับขนาดให้เหมาะสม
+          currentModel.scale.set(scale, scale, scale);
+          currentModel.position.sub(center.multiplyScalar(scale)); // ย้ายไปยังจุดศูนย์กลาง
+
+          // ปรับกล้องให้โฟกัสที่โมเดล
+          camera.position.set(0, 0, maxDim * 2); // ตั้งตำแหน่งกล้องให้มองจากด้านหน้า
+          controls.target.copy(center); // โฟกัสกล้องไปที่จุดศูนย์กลางของโมเดล
+          controls.update();
+        },
+        (xhr) => {
+          console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        },
+        (error) => {
+          console.error('An error happened', error);
+        }
+      );
+    }
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // ปรับขนาดหน้าจอเมื่อหน้าต่างเปลี่ยนขนาด
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
