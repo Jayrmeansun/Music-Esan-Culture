@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>เครื่องดนตรีอีสาน</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://unpkg.com/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
   <style>
     body {
       background-color: #F5F5DC; /* สีครีมเป็นพื้นหลัง */
@@ -15,6 +18,13 @@
     }
     .instrument-card:hover {
       transform: scale(1.05);
+    }
+    .model-container {
+      width: 100%;
+      height: 300px; /* Increased height for better 3D model display */
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -28,10 +38,10 @@
   <!-- Main Content -->
   <main class="container mx-auto px-4 py-8">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Instrument Card Example (พิณ) -->
+      <!-- Instrument Card (พิณ) -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
         <div class="relative">
-          <img src="Pic/phin.jpg" alt="พิณ" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="model-container" data-model="Models/phin.glb"></div>
           <div class="absolute bottom-2 right-2 flex space-x-2">
             <button onclick="playSound('phin')" class="bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
               เล่นเสียง
@@ -45,10 +55,10 @@
         <p class="text-gray-700 mt-2">เป็นเครื่องดนตรีที่บรรเลงด้วยการดีด มี ๒-๓ สาย แต่ขึ้นเป็นสองคู่ โดยขึ้นคู่ ๕ ดีดเป็นทำนองเพลง ตัว พิณและคันทวนนิยมแกะด้วยไม้ชิ้นเดียวกัน มีนมสำหรับตั้งเสียง สายพิณนิยมทำด้วยโลหะ โดยเฉพาะสายลวดเบรคจักรยาน ที่ดีดนิยมทำด้วยขาสัตว์แบนๆ เหลาให้บางพอที่จะดีด สะบัดได้</p>
       </div>
 
-      <!-- Instrument Card Example (โหวด) -->
+      <!-- Instrument Card (โหวด) -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
         <div class="relative">
-          <img src="Pic/wode.jpg" alt="โหวด" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="model-container" data-model="Models/wode.glb"></div>
           <div class="absolute bottom-2 right-2 flex space-x-2">
             <button onclick="playSound('wot')" class="bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
               เล่นเสียง
@@ -62,10 +72,10 @@
         <p class="text-gray-700 mt-2">โหวด เป็นเครื่องเป่าชนิดหนึ่งที่ไม่มีลิ้น เกิดจากกระแสลมที่เป่าผ่านไม้รวกหรือไม้ เฮี้ย (ไม้กู่แคน) หรือไม้ไผ่ ด้านรู เปิดของตัวโหวดทำด้วยไม้รวกขนาดเล็ก สั้น ยาว (เรียงลำดับตามความสูงต่ำของเสียง) ติด อยู่รอบกระบอกไม้ไผ่ที่ใช้เป็นแกนกลาง ติดไว้ด้วยขี้สูด มีจำนวน ๖-๙ เลา ความ ยาวประมาณ ๒๕ เซนติเมตร เวลาเป่าจะหมุนไปรอบๆ ตามเสียงที่ต้องการ</p>
       </div>
 
-      <!-- Instrument Card Example (แคน) -->
+      <!-- Instrument Card (แคน) -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
         <div class="relative">
-          <img src="Pic/kane.jpg" alt="แคน" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="model-container" data-model="Models/kane.glb"></div>
           <div class="absolute bottom-2 right-2 flex space-x-2">
             <button onclick="playSound('khaen')" class="bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
               เล่นเสียง
@@ -82,7 +92,7 @@
       <!-- โปงลาง -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
         <div class="relative">
-          <img src="Pic/ponglang.jpg" alt="โปงลาง" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="model-container" data-model="Models/ponglang.glb"></div>
           <div class="absolute bottom-2 right-2 flex space-x-2">
             <button onclick="playSound('ponglang')" class="bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
               เล่นเสียง
@@ -99,7 +109,7 @@
       <!-- หืน -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
         <div class="relative">
-          <img src="Pic/huen.jpg" alt="หืน" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="model-container" data-model="Models/huen.glb"></div>
           <div class="absolute bottom-2 right-2 flex space-x-2">
             <button onclick="playSound('huen')" class="bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
               เล่นเสียง
@@ -116,7 +126,7 @@
       <!-- จะเข้กระบือ -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
         <div class="relative">
-          <img src="Pic/krabue.jpg" alt="จะเข้กระบือ" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="model-container" data-model="Models/krabue.glb"></div>
           <div class="absolute bottom-2 right-2 flex space-x-2">
             <button onclick="playSound('krabue')" class="bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
               เล่นเสียง
@@ -133,7 +143,7 @@
       <!-- กระจับปี่ -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
         <div class="relative">
-          <img src="Pic/kachappi.jpg" alt="กระจับปี่" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="model-container" data-model="Models/kachappi.glb"></div>
           <div class="absolute bottom-2 right-2 flex space-x-2">
             <button onclick="playSound('jappey')" class="bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
               เล่นเสียง
@@ -150,7 +160,7 @@
       <!-- ซอกันตรึม -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
         <div class="relative">
-          <img src="Pic/kantrum.jpg" alt="ซอกันตรึม" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="model-container" data-model="Models/kantrum.glb"></div>
           <div class="absolute bottom-2 right-2 flex space-x-2">
             <button onclick="playSound('sawkantrum')" class="bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
               เล่นเสียง
@@ -167,7 +177,7 @@
       <!-- กลองกันตรึม -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
         <div class="relative">
-          <img src="Pic/klongkantrum.jpg" alt="กลองกันตรึม" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="model-container" data-model="Models/klongkantrum.glb"></div>
           <div class="absolute bottom-2 right-2 flex space-x-2">
             <button onclick="playSound('klongkantrum')" class="bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
               เล่นเสียง
@@ -184,7 +194,7 @@
       <!-- ปี่ไสล -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-4">
         <div class="relative">
-          <img src="Pic/pi_salai.jpg" alt="ปี่ไสล" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="model-container" data-model="Models/pi_salai.glb"></div>
           <div class="absolute bottom-2 right-2 flex space-x-2">
             <button onclick="playSound('pi_salai')" class="bg-[#4A7043] text-white px-4 py-2 rounded-full hover:bg-[#A52A2A]">
               เล่นเสียง
@@ -206,7 +216,7 @@
     <p>อ้างอิงจาก กรมส่งเสริมวัฒนธรรม (สวธ.)กระทรวงวัฒนธรรม </p>
   </footer>
 
-  <!-- JavaScript for Audio Playback -->
+  <!-- JavaScript for Audio Playback and 3D Model Rendering -->
   <script>
     const audioFiles = {
       phin: new Audio('Sound/phin_ne.mp3'),
@@ -223,7 +233,6 @@
     };
 
     function playSound(instrument) {
-      // หยุดเสียงทั้งหมดก่อนเล่นเสียงใหม่
       Object.values(audioFiles).forEach(audio => {
         audio.pause();
         audio.currentTime = 0;
@@ -233,12 +242,78 @@
     }
 
     function stopSound() {
-      // หยุดเสียงทั้งหมดและรีเซ็ตตำแหน่ง
       Object.values(audioFiles).forEach(audio => {
         audio.pause();
         audio.currentTime = 0;
       });
     }
+
+    // Three.js setup for 3D models
+    const containers = document.querySelectorAll('.model-container');
+    containers.forEach(container => {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
+
+      // Add lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      directionalLight.position.set(10, 10, 10);
+      scene.add(directionalLight);
+
+      // OrbitControls for interactivity
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.enableZoom = true;
+      controls.autoRotate = false;
+
+      // Load GLB model
+      const loader = new THREE.GLTFLoader();
+      const modelPath = container.getAttribute('data-model');
+      loader.load(
+        modelPath,
+        (gltf) => {
+          const model = gltf.scene;
+          scene.add(model);
+
+          // Adjust model scale and position
+          const box = new THREE.Box3().setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 2.0 / maxDim; // Adjust scale to fit
+          model.scale.set(scale, scale, scale);
+          model.position.sub(center.multiplyScalar(scale));
+
+          camera.position.z = maxDim * 1.5;
+        },
+        undefined,
+        (error) => {
+          console.error('Error loading model:', error);
+        }
+      );
+
+      // Animation loop
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      });
+    });
   </script>
 </body>
 </html>
