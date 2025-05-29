@@ -20,6 +20,9 @@
       transform: translate(-50%, -50%);
       z-index: 10;
     }
+    #instrumentLabel {
+      display: none;
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -55,6 +58,8 @@
         </svg>
         กำลังโหลดโมเดล...
       </div>
+      <div id="instrumentLabel" class="absolute top-20 left-4 text-lg font-semibold text-gray-800 bg-white bg-opacity-75 px-4 py-2 rounded-lg shadow-md"></div>
+      <button id="toggleRotate" class="absolute top-28 left-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-200">เปิดการหมุน</button>
     </div>
   </div>
 
@@ -64,17 +69,44 @@
   <script>
     // สร้าง Scene, Camera และ Renderer
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xFFF8E7); // ตั้งฉากเป็นสีครีม
+
+    // สร้างพื้นระนาบสีเทา
+    const planeGeometry = new THREE.PlaneGeometry(10, 10);
+    const planeMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
+    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.rotation.x = -Math.PI / 2;
+    plane.position.y = -1;
+    plane.receiveShadow = true; // รับเงา
+    scene.add(plane);
+
+    // เพิ่มแสงให้สว่างสำหรับนิทรรศการ
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(0, 1, 1).normalize();
+    scene.add(directionalLight);
+
+    // เพิ่มไฟสปอร์ตไลต์ส่องลงที่โมเดล
+    const spotLight = new THREE.SpotLight(0xFFE8D6, 1.5); // สีเหลืองอ่อน
+    spotLight.position.set(0, 5, 2);
+    spotLight.angle = Math.PI / 6;
+    spotLight.penumbra = 0.2;
+    spotLight.distance = 10;
+    spotLight.castShadow = true;
+    spotLight.shadow.mapSize.width = 1024;
+    spotLight.shadow.mapSize.height = 1024;
+    spotLight.target.position.set(0, 0, 0);
+    scene.add(spotLight);
+    scene.add(spotLight.target);
+
+    // สร้าง Camera และ Renderer
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true; // เปิดใช้งานเงา
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap; // เงานุ่มนวล
     document.body.appendChild(renderer.domElement);
-
-    // เพิ่มแสงให้สว่างสำหรับนิทรรศการ
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-    scene.add(ambientLight);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    directionalLight.position.set(0, 1, 1).normalize();
-    scene.add(directionalLight);
 
     // เพิ่ม OrbitControls
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -86,6 +118,13 @@
     controls.enableZoom = true;
     controls.autoRotate = false;
 
+    // เพิ่มปุ่มควบคุมการหมุน
+    const toggleRotateButton = document.getElementById('toggleRotate');
+    toggleRotateButton.addEventListener('click', () => {
+      controls.autoRotate = !controls.autoRotate;
+      toggleRotateButton.textContent = controls.autoRotate ? 'ปิดการหมุน' : 'เปิดการหมุน';
+    });
+
     // ตั้งตำแหน่งเริ่มต้นของกล้อง
     camera.position.set(0, 0, 3);
 
@@ -95,7 +134,9 @@
     const loader = new THREE.GLTFLoader();
     function loadModel(url) {
       const loadingIndicator = document.getElementById('loading');
+      const label = document.getElementById('instrumentLabel');
       loadingIndicator.style.display = 'block';
+      label.style.display = 'none';
 
       // ลบโมเดลเก่าออก
       if (currentModel) {
@@ -107,6 +148,9 @@
         url,
         (gltf) => {
           currentModel = gltf.scene;
+          currentModel.traverse((child) => {
+            if (child.isMesh) child.castShadow = true; // ทำให้โมเดลสร้างเงา
+          });
           scene.add(currentModel);
 
           // ปรับขนาดและตำแหน่งให้อยู่ตรงกลาง
@@ -117,6 +161,11 @@
           const scale = 2.0 / maxDim;
           currentModel.scale.set(scale, scale, scale);
           currentModel.position.set(0, 0, 0);
+
+          // แสดงชื่อเครื่องดนตรี
+          const selector = document.getElementById('modelSelector');
+          label.textContent = selector.options[selector.selectedIndex].text.split(' (')[0];
+          label.style.display = 'block';
 
           // ปรับการควบคุมให้โฟกัสที่จุดศูนย์กลาง
           controls.target.set(0, 0, 0);
@@ -130,6 +179,7 @@
         (error) => {
           console.error('An error happened', error);
           loadingIndicator.style.display = 'none';
+          label.style.display = 'none';
           alert('เกิดข้อผิดพลาดในการโหลดโมเดล กรุณาลองใหม่');
         }
       );
