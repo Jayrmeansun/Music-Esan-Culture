@@ -285,11 +285,11 @@
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
           const maxDim = Math.max(size.x, size.y, size.z);
-          const scale = 2.0 / maxDim; // Adjust scale to fit
+          const scale = 50.0 / maxDim; // Increased scale for larger models
           model.scale.set(scale, scale, scale);
           model.position.sub(center.multiplyScalar(scale));
 
-          camera.position.z = maxDim * 1.5;
+          camera.position.z = maxDim * 0.8; // Closer camera position for larger view
         },
         undefined,
         (error) => {
