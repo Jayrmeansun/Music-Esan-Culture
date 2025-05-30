@@ -71,8 +71,8 @@
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xFFF8E7); // ตั้งฉากเป็นสีครีม
 
-    // สร้างพื้นระนาบสีเทา
-    const planeGeometry = new THREE.PlaneGeometry(10, 10);
+    // สร้างพื้นระนาบวงกลมสีเทา
+    const planeGeometry = new THREE.CircleGeometry(5, 32); // วงกลมขนาดใหญ่
     const planeMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotation.x = -Math.PI / 2;
@@ -125,8 +125,8 @@
       toggleRotateButton.textContent = controls.autoRotate ? 'ปิดการหมุน' : 'เปิดการหมุน';
     });
 
-    // ตั้งตำแหน่งเริ่มต้นของกล้อง
-    camera.position.set(0, 0, 3);
+    // ตั้งตำแหน่งเริ่มต้นของกล้องให้เห็นโมเดลทั้งอัน
+    camera.position.set(0, 1.5, 5); // ปรับระยะห่างและความสูงให้เห็นเต็มโมเดล
 
     let currentModel = null;
 
