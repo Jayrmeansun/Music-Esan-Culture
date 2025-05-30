@@ -11,7 +11,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;700&display=swap');
     body {
-      background-color: #FAF9F6; /* Soft off-white background */
+      background-color: #FAF9F6;
       font-family: 'Noto Serif Thai', sans-serif;
       color: #333333;
     }
@@ -20,6 +20,9 @@
       background: linear-gradient(145deg, #FFFFFF, #F8FAFC);
       border-radius: 12px;
       overflow: hidden;
+      width: 100%;
+      max-width: 600px; /* Max width for larger screens */
+      margin: 0 auto; /* Center the card */
     }
     .instrument-card:hover {
       transform: translateY(-5px);
@@ -27,7 +30,7 @@
     }
     .model-container {
       width: 100%;
-      height: 320px; /* Slightly increased for better display */
+      height: 320px; /* Default height */
       position: relative;
       border: 1px solid rgba(0, 0, 0, 0.05);
       border-radius: 8px;
@@ -49,6 +52,30 @@
       top: 0;
       z-index: 10;
     }
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      .instrument-card {
+        max-width: 100%;
+        padding: 1rem;
+      }
+      .model-container {
+        height: 280px; /* Smaller height for mobile */
+      }
+      .text-2xl {
+        font-size: 1.5rem; /* Adjust heading size */
+      }
+      .text-lg {
+        font-size: 1rem; /* Adjust text size */
+      }
+    }
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .instrument-card {
+        max-width: 90%;
+      }
+      .model-container {
+        height: 300px; /* Medium height for tablets */
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -60,7 +87,7 @@
 
   <!-- Main Content -->
   <main class="container mx-auto px-6 py-12">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 gap-8">
       <!-- Instrument Card (พิณ) -->
       <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
         <div class="relative">
@@ -309,7 +336,7 @@
     const containers = document.querySelectorAll('.model-container');
     containers.forEach(container => {
       const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xFAF9F6); // Match the new background color
+      scene.background = new THREE.Color(0xFAF9F6);
       const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
       renderer.setSize(container.clientWidth, container.clientHeight);
@@ -338,7 +365,7 @@
       // Add a circular base with wood-like texture
       const baseGeometry = new THREE.CylinderGeometry(100, 100, 6, 32);
       const baseMaterial = new THREE.MeshStandardMaterial({
-        color: 0xA33F1F, // Updated to match new primary color
+        color: 0xA33F1F,
         roughness: 0.5,
         metalness: 0.1
       });
