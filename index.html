@@ -21,8 +21,8 @@
       border-radius: 12px;
       overflow: hidden;
       width: 100%;
-      max-width: 600px; /* Max width for larger screens */
-      margin: 0 auto; /* Center the card */
+      max-width: 600px;
+      margin: 0 auto;
     }
     .instrument-card:hover {
       transform: translateY(-5px);
@@ -30,7 +30,7 @@
     }
     .model-container {
       width: 100%;
-      height: 320px; /* Default height */
+      height: 320px;
       position: relative;
       border: 1px solid rgba(0, 0, 0, 0.05);
       border-radius: 8px;
@@ -39,11 +39,11 @@
     .model-container:hover {
       transform: scale(1.02);
     }
-    .play-btn, .stop-btn {
+    .play-btn, .stop-btn, .play-narration-btn, .stop-narration-btn {
       background: linear-gradient(to right, #2E7D32, #4CAF50);
       transition: background 0.3s ease, transform 0.2s ease;
     }
-    .play-btn:hover, .stop-btn:hover {
+    .play-btn:hover, .stop-btn:hover, .play-narration-btn:hover, .stop-narration-btn:hover {
       background: linear-gradient(to right, #EF6C00, #FF8C00);
       transform: translateY(-2px);
     }
@@ -52,20 +52,19 @@
       top: 0;
       z-index: 10;
     }
-    /* Responsive adjustments */
     @media (max-width: 640px) {
       .instrument-card {
         max-width: 100%;
         padding: 1rem;
       }
       .model-container {
-        height: 280px; /* Smaller height for mobile */
+        height: 280px;
       }
       .text-2xl {
-        font-size: 1.5rem; /* Adjust heading size */
+        font-size: 1.5rem;
       }
       .text-lg {
-        font-size: 1rem; /* Adjust text size */
+        font-size: 1rem;
       }
     }
     @media (min-width: 641px) and (max-width: 1024px) {
@@ -73,7 +72,7 @@
         max-width: 90%;
       }
       .model-container {
-        height: 300px; /* Medium height for tablets */
+        height: 300px;
       }
     }
   </style>
@@ -104,7 +103,17 @@
           </div>
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">พิณ</h2>
-        <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องดนตรีที่บรรเลงด้วยการดีด มี ๒-๓ สาย แต่ขึ้นเป็นสองคู่ โดยขึ้นคู่ ๕ ดีดเป็นทำนองเพลง ตัว พิณและคันทวนนิยมแกะด้วยไม้ชิ้นเดียวกัน มีนมสำหรับตั้งเสียง สายพิณนิยมทำด้วยโลหะ โดยเฉพาะสายลวดเบรคจักรยาน ที่ดีดนิยมทำด้วยขาสัตว์แบนๆ เหลาให้บางพอที่จะดีด สะบัดได้</p>
+        <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องดนตรีที่บรรเลงด้วยการดีด มี ๒-๓ สาย แต่ขึ้นเป็นสองคู่ โดยขึ้นคู่ ๕ ดีดเป็นทำนองเพลง ตัวพิณและคันทวนนิยมแกะด้วยไม้ชิ้นเดียวกัน มีนมสำหรับตั้งเสียง สายพิณนิยมทำด้วยโลหะ โดยเฉพาะสายลวดเบรคจักรยาน ที่ดีดนิยมทำด้วยขาสัตว์แบนๆ เหลาให้บางพอที่จะดีดสะบัดได้</p>
+        <div class="mt-4 flex space-x-3">
+          <button onclick="playNarration('phin')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายพิณ">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
+            <span>เล่นคำบรรยาย</span>
+          </button>
+          <button onclick="stopNarration()" class="stop-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="หยุดคำบรรยาย">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 6h8v8H6z"/></svg>
+            <span>หยุดคำบรรยาย</span>
+          </button>
+        </div>
       </div>
 
       <!-- Instrument Card (โหวด) -->
@@ -123,7 +132,17 @@
           </div>
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">โหวด</h2>
-        <p class="text-[#4B5EAA] mt-3 leading-relaxed">โหวด เป็นเครื่องเป่าชนิดหนึ่งที่ไม่มีลิ้น เกิดจากกระแสลมที่เป่าผ่านไม้รวกหรือไม้ เฮี้ย (ไม้กู่แคน) หรือไม้ไผ่ ด้านรู เปิดของตัวโหวดทำด้วยไม้รวกขนาดเล็ก สั้น ยาว (เรียงลำดับตามความสูงต่ำของเสียง) ติด อยู่รอบกระบอกไม้ไผ่ที่ใช้เป็นแกนกลาง ติดไว้ด้วยขี้สูด มีจำนวน ๖-๙ เลา ความ ยาวประมาณ ๒๕ เซนติเมตร เวลาเป่าจะหมุนไปรอบๆ ตามเสียงที่ต้องการ</p>
+        <p class="text-[#4B5EAA] mt-3 leading-relaxed">โหวด เป็นเครื่องเป่าชนิดหนึ่งที่ไม่มีลิ้น เกิดจากกระแสลมที่เป่าผ่านไม้รวกหรือไม้ เฮี้ย (ไม้กู่แคน) หรือไม้ไผ่ ด้านรูเปิดของตัวโหวดทำด้วยไม้รวกขนาดเล็ก สั้น ยาว (เรียงลำดับตามความสูงต่ำของเสียง) ติดอยู่รอบกระบอกไม้ไผ่ที่ใช้เป็นแกนกลางติดไว้ด้วยขี้สูด มีจำนวน ๖-๙ เลา ความยาวประมาณ ๒๕ เซนติเมตร เวลาเป่าจะหมุนไปรอบๆตามเสียงที่ต้องการ</p>
+        <div class="mt-4 flex space-x-3">
+          <button onclick="playNarration('wot')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายโหวด">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
+            <span>เล่นคำบรรยาย</span>
+          </button>
+          <button onclick="stopNarration()" class="stop-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="หยุดคำบรรยาย">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 6h8v8H6z"/></svg>
+            <span>หยุดคำบรรยาย</span>
+          </button>
+        </div>
       </div>
 
       <!-- Instrument Card (แคน) -->
@@ -142,7 +161,17 @@
           </div>
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">แคน</h2>
-        <p class="text-[#4B5EAA] mt-3 leading-relaxed">แคน เป็น เครื่องดนตรีที่เป็นที่รู้จักมากที่สุดของ ชาวภาคอีสานเหนือ และอีสานภาคกลางไม่รวมอีสาน ใต้ที่มีอิทธิพลเขมร ได้แก่ "แคน" แคนเป็นเครื่องดนตรีสมบูรณ์แบบที่สุด ที่มีประวัติ ความเป็นมาย้อนหลังไปหลายพันปี แคนทำ ด้วยไม้ซาง มีลิ้นโลหะ เช่นดีบุก เงิน หรือทองแดง บางๆ ประกอบไว้ในส่วนที่ประกอบอยู่ในเต้าแคน แคนมีหลายขนาด เช่น แคน ๗ แคน ๙ ข้าง ๆ เต้าแคน ด้านบนมีรูปิดเปิดบังคับเสียง เวลา เป่า เป่า ที่เต้าแคนด้านหน้า ใช้มือทั้งสอง ประกอบจับเต้าแคนในลักษณะเฉียงเล็กน้อย แคนเป็น เครื่องดนตรีที่บรรเลงได้ทั้งทำนองเพลงประสานเสียง และให้จังหวะในตัวเอง จึงมีลีลาการบรรเลง ที่วิจิตรพิสดารมาก ระบบเสียงของแคน เป็นทั้งระบบ ไดอะโทนิค และเพนตะโทนิค มีขั้น คู่เสียงที่เล่นได้ทั้งแบบตะวันตกและแบบ ไทยรวมทั้งคู่เสียงระดับเดียวกันอีกด้วย</p>
+        <p class="text-[#4B5EAA] mt-3 leading-relaxed">แคน เป็นเครื่องดนตรีที่เป็นที่รู้จักมากที่สุดของชาวภาคอีสานเหนือ และอีสานกลางไม่รวมอีสานใต้ที่มีอิทธิพลเขมร ได้แก่ "แคน" แคนเป็นเครื่องดนตรีสมบูรณ์แบบที่สุด ที่มีประวัติความเป็นมาย้อนหลังไปหลายพันปี แคนทำด้วยไม้ซางมีลิ้นโลหะ เช่นดีบุก เงิน หรือทองแดง บางๆ ประกอบไว้ในส่วนที่ประกอบอยู่ในเต้าแคน แคนมีหลายขนาด เช่น แคน ๗ แคน ๙ ข้าง ๆ เต้าแคน ด้านบนมีรูปิดเปิดบังคับเสียง เวลา เป่า เป่า ที่เต้าแคนด้านหน้า ใช้มือทั้งสอง ประกอบจับเต้าแคนในลักษณะเฉียงเล็กน้อย แคนเป็นเครื่องดนตรีที่บรรเลงได้ทั้งทำนองเพลงประสานเสียง และให้จังหวะในตัวเอง จึงมีลีลาการบรรเลงที่วิจิตรพิสดารมาก ระบบเสียงของแคนเป็นทั้งระบบ ไดอะโทนิค และเพนตะโทนิค มีขั้น คู่เสียงที่เล่นได้ทั้งแบบตะวันตกและแบบไทยรวมทั้งคู่เสียงระดับเดียวกันอีกด้วย</p>
+        <div class="mt-4 flex space-x-3">
+          <button onclick="playNarration('khaen')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายแคน">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
+            <span>เล่นคำบรรยาย</span>
+          </button>
+          <button onclick="stopNarration()" class="stop-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="หยุดคำบรรยาย">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 6h8v8H6z"/></svg>
+            <span>หยุดคำบรรยาย</span>
+          </button>
+        </div>
       </div>
 
       <!-- โปงลาง -->
@@ -161,7 +190,17 @@
           </div>
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">โปงลาง</h2>
-        <p class="text-[#4B5EAA] mt-3 leading-relaxed">โปงลางเป็นเครื่องดนตรีประเภทที่บรรเลง ทำนองด้วยการตีเพียงชนิดเดียวของภาคอีสาน โดย บรรเลงร่วมกันกับแคน พิณและเครื่องประกอบจังหวะ หรือ บรรเลงเดี่ยว ตังโปงลางทำด้วยท่อนไม้แข็งขนาดต่างๆ กันเรียงตามลำดับเสียงร้อยด้วยเชือกเป็นลูกระนาด ปลายข้างเสียงสูงผูกแขวนไว้กับกิ่งไม้ และ ข้างเสียงต่ำปล่อยทอดเยื้องลงมาคล้องไว้กับ หัวแม่เท้าของผู้บรรเลง หรือคล้องกับวัสดุ ปกติ ผู้เล่นโปงลางรางหนึ่งมี ๒ คน คือ คนบรรเลง ทำนองเพลงกับคนบรรเลงเสียงกระทบแบบคู่ประสาน ไม้ ที่ตีโปงลางทำด้วยไม้เนื้อแข็งเป็นรูปคล้าย ค้อนตีด้วยมือสองข้าง ข้างละอัน ขนาดของโปงลางไม่มีมาตรฐานแน่นอน</p>
+        <p class="text-[#4B5EAA] mt-3 leading-relaxed">โปงลางเป็นเครื่องดนตรีประเภทที่บรรเลงทำนองด้วยการตีเพียงชนิดเดียวของภาคอีสาน โดยบรรเลงร่วมกันกับแคน พิณและเครื่องประกอบจังหวะ หรือบรรเลงเดี่ยว ตัวโปงลางทำด้วยท่อนไม้แข็งขนาดต่างกันเรียงตามลำดับเสียงร้อยด้วยเชือกเป็นลูกระนาด ปลายข้างเสียงสูงผูกแขวนไว้กับกิ่งไม้ และข้างเสียงต่ำปล่อยทอดเยื้องลงมาคล้องไว้กับหัวแม่เท้าของผู้บรรเลง หรือคล้องกับวัสดุ ปกติผู้เล่นโปงลางรางหนึ่งมี ๒ คน คือคนบรรเลงทำนองเพลงกับคนบรรเลงเสียงกระทบแบบคู่ประสาน ไม้ที่ตีโปงลางทำด้วยไม้เนื้อแข็งเป็นรูปคล้ายค้อนตีด้วยมือสองข้าง ข้างละอัน ขนาดของโปงลางไม่มีมาตรฐานแน่นอน</p>
+        <div class="mt-4 flex space-x-3">
+          <button onclick="playNarration('ponglang')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายโปงลาง">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
+            <span>เล่นคำบรรยาย</span>
+          </button>
+          <button onclick="stopNarration()" class="stop-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="หยุดคำบรรยาย">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 6h8v8H6z"/></svg>
+            <span>หยุดคำบรรยาย</span>
+          </button>
+        </div>
       </div>
 
       <!-- หืน -->
@@ -180,7 +219,17 @@
           </div>
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">หืน</h2>
-        <p class="text-[#4B5EAA] mt-3 leading-relaxed">หืน เป็นเครื่องดนตรีกึ่งดีดกึ่งเป่าอย่างหนึ่งมี ทั้งที่ทำด้วยไม้ไผ่และโลหะเซาะร่องตรง กลางเป็นลิ้นในตัว เวลาเล่นประกบหืนเข้ากับ ปาก ดีดที่ปลายข้างหนึ่งด้วยนิ้วหัวแม่มือ หรือนิ้วชี้ อาศัยกระพุ้งปากเป็นกล่องเสียง ทำให้ เกิดเสียงสูงต่ำตามขนาดของกระพุ้งปากที่ทำ สามารถดีดเป็นเสียงแท้คล้ายเสียงคนออกเสียงสระ เครื่องดนตรีนี้มีเล่นกันในพวกชนเผ่ามูเซอ เรียกชื่อว่า เปี๊ยะ เครื่องดนตรีชนิดนี้มิ ได้มีเฉพาะในประเทศไทยเท่านั้น แต่มีใน ทุกส่วนของโลก เช่น แถบมองโกเลีย ปาปัวนิวกินี อัฟริกา และยุโรป นับเป็น เครื่องดนตรีโบราณชิ้นหนึ่งที่น่าศึกษาอย่างยิ่ง</p>
+        <p class="text-[#4B5EAA] mt-3 leading-relaxed">หืน เป็นเครื่องดนตรีกึ่งดีดกึ่งเป่าอย่างหนึ่ง มีทั้งที่ทำด้วยไม้ไผ่และโลหะเซาะร่องตรงกลางเป็นลิ้นในตัว เวลาเล่นประกบหืนเข้ากับปาก ดีดที่ปลายข้างหนึ่งด้วยนิ้วหัวแม่มือ หรือนิ้วชี้ อาศัยกระพุ้งปากเป็นกล่องเสียง ทำให้เกิดเสียงสูงต่ำตามขนาดของกระพุ้งปากที่ทำสามารถดีดเป็นเสียงแท้คล้ายเสียงคนออกเสียงสระ เครื่องดนตรีนี้มีเล่นกันในพวกชนเผ่ามูเซอ เรียกชื่อว่า เปี๊ยะ เครื่องดนตรีชนิดนี้มิได้มีเฉพาะในประเทศไทยเท่านั้น แต่มีในทุกส่วนของโลก เช่น แถบมองโกเลีย ปาปัวนิวกินี อัฟริกา และยุโรป นับเป็นเครื่องดนตรีโบราณชิ้นหนึ่งที่น่าศึกษาอย่างยิ่ง</p>
+        <div class="mt-4 flex space-x-3">
+          <button onclick="playNarration('huen')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายหืน">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
+            <span>เล่นคำบรรยาย</span>
+          </button>
+          <button onclick="stopNarration()" class="stop-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="หยุดคำบรรยาย">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 6h8v8H6z"/></svg>
+            <span>หยุดคำบรรยาย</span>
+          </button>
+        </div>
       </div>
 
       <!-- จะเข้กระบือ -->
@@ -199,7 +248,17 @@
           </div>
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">จะเข้กระบือ</h2>
-        <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องดนตรีสำคัญชิ้นหนึ่งในวงมโหรีเขมร เป็นเครื่องดนตรีประเภทดีดในแนวนอน มี ๓ สาย สมัยก่อนสายทำจากเส้นไหมฟั่น ปัจจุบันทำจาก สายเบรคจักรยาน การบรรเลงจะใช้มือซ้ายกด สายบนเสียงที่ต้องการ ส่วนมือขวาใช้สำหรับดีด</p>
+        <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องดนตรีสำคัญชิ้นหนึ่งในวงมโหรีเขมร เป็นเครื่องดนตรีประเภทดีดในแนวนอน มี ๓ สาย สมัยก่อนสายทำจากเส้นไหมฟั่น ปัจจุบันทำจากสายเบรคจักรยาน การบรรเลงจะใช้มือซ้ายกดสายบนเสียงที่ต้องการ ส่วนมือขวาใช้สำหรับดีด</p>
+        <div class="mt-4 flex space-x-3">
+          <button onclick="playNarration('krabue')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายจะเข้กระบือ">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
+            <span>เล่นคำบรรยาย</span>
+          </button>
+          <button onclick="stopNarration()" class="stop-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="หยุดคำบรรยาย">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 6h8v8H6z"/></svg>
+            <span>หยุดคำบรรยาย</span>
+          </button>
+        </div>
       </div>
 
       <!-- กระจับปี่ -->
@@ -218,7 +277,17 @@
           </div>
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">กระจับปี่</h2>
-        <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องดนตรีประเภทดีด โดยใช้กระที่ทำจากเขาสัตว์ กล่องเสียงทำ ด้วยไม้ขนุนหรือไม้สัก ส่วนปลายสุดมีรู ๒ รู ใช้ใส่ลูกบิดและร้อยสาย เมื่อบรรเลง จะตั้งขนานกับลำตัว มือขวาจับกระสำหรับดีด มือซ้ายกดที่สายเพื่อเปลี่ยนระดับเสียง</p>
+        <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องดนตรีประเภทดีด โดยใช้กระที่ทำจากเขาสัตว์ กล่องเสียงทำด้วยไม้ขนุนหรือไม้สัก ส่วนปลายสุดมีรู ๒ รู ใช้ใส่ลูกบิดและร้อยสาย เมื่อบรรเลงจะตั้งขนานกับลำตัว มือขวาจับกระสำหรับดีด มือซ้ายกดที่สายเพื่อเปลี่ยนระดับเสียง</p>
+        <div class="mt-4 flex space-x-3">
+          <button onclick="playNarration('jappey')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายกระจับปี่">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
+            <span>เล่นคำบรรยาย</span>
+          </button>
+          <button onclick="stopNarration()" class="stop-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="หยุดคำบรรยาย">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 6h8v8H6z"/></svg>
+            <span>หยุดคำบรรยาย</span>
+          </button>
+        </div>
       </div>
 
       <!-- ซอกันตรึม -->
@@ -237,7 +306,17 @@
           </div>
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">ซอกันตรึม</h2>
-        <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องสายใช้สี ทำ ด้วยไม้ กล่องเสียงขึงด้วยหนังงู มีช่องเสียง อยู่ด้านตรงข้ามหน้าซอ ใช้สายลวดมี ๒ สาย คันชักอยู่ระหว่างสาย คันซอยาวประมาณ ๖๐ เซนติเมตร มีลูกบิดอยู่ตอนนอกซอใช้รัด ด้วยเชือก ขนาดของซอแตกต่างกันไปตามความ ประสงค์ของผู้สร้าง โดยทั่วไปมี ๓ ขนาด คือ ขนาดเล็กเรียก ตรัวจี้ ขนาดกลางเรียกตรัวเอก ขนาดใหญ่เรียกตรัวธม</p>
+        <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องสายใช้สี ทำด้วยไม้ กล่องเสียงขึงด้วยหนังงู มีช่องเสียงอยู่ด้านตรงข้ามหน้าซอ ใช้สายลวดมี ๒ สาย คันชักอยู่ระหว่างสาย คันซอยาวประมาณ ๖๐ เซนติเมตร มีลูกบิดอยู่ตอนนอกซอใช้รัด ด้วยเชือก ขนาดของซอแตกต่างกันไปตามความประสงค์ของผู้สร้าง โดยทั่วไปมี ๓ ขนาด คือ ขนาดเล็กเรียกตรัวจี้ ขนาดกลางเรียกตรัวเอก ขนาดใหญ่เรียกตรัวธม</p>
+        <div class="mt-4 flex space-x-3">
+          <button onclick="playNarration('sawkantrum')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายซอกันตรึม">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
+            <span>เล่นคำบรรยาย</span>
+          </button>
+          <button onclick="stopNarration()" class="stop-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="หยุดคำบรรยาย">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 6h8v8H6z"/></svg>
+            <span>หยุดคำบรรยาย</span>
+          </button>
+        </div>
       </div>
 
       <!-- กลองกันตรึม -->
@@ -256,7 +335,17 @@
           </div>
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">กลองกันตรึม</h2>
-        <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องหนังชนิดหนึ่งทำด้วยไม้ขุดกลวง ขึงหน้าด้านหนึ่งด้วยหนังดึงให้ตึงด้วยเชือก ใช้ดีประกอบจังหวะในวงกันตรึม</p>
+        <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องหนังชนิดหนึ่งทำด้วยไม้ขุดกลวง ขึงหน้าด้านหนึ่งด้วยหนังดึงให้ตึงด้วยเชือก ใช้ตีประกอบจังหวะในวงกันตรึม</p>
+        <div class="mt-4 flex space-x-3">
+          <button onclick="playNarration('klongkantrum')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายกลองกันตรึม">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
+            <span>เล่นคำบรรยาย</span>
+          </button>
+          <button onclick="stopNarration()" class="stop-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="หยุดคำบรรยาย">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 6h8v8H6z"/></svg>
+            <span>หยุดคำบรรยาย</span>
+          </button>
+        </div>
       </div>
 
       <!-- ปี่ไสล -->
@@ -276,6 +365,16 @@
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">ปี่ไสล</h2>
         <p class="text-[#4B5EAA] mt-3 leading-relaxed">ใช้บรรเลงในวงกันตรึมเป็นปี่ประเภทลิ้นคู่เช่นเดียวกับปี่ใน</p>
+        <div class="mt-4 flex space-x-3">
+          <button onclick="playNarration('pi_salai')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายปี่ไสล">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
+            <span>เล่นคำบรรยาย</span>
+          </button>
+          <button onclick="stopNarration()" class="stop-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="หยุดคำบรรยาย">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 6h8v8H6z"/></svg>
+            <span>หยุดคำบรรยาย</span>
+          </button>
+        </div>
       </div>
 
       <!-- QR Code Card -->
@@ -316,8 +415,25 @@
       flute: new Audio('assets/sounds/flute.mp3')
     };
 
+    const narrationFiles = {
+      phin: new Audio('Sound/phin_narration.mp3'),
+      wot: new Audio('Sound/wot_narration.mp3'),
+      khaen: new Audio('Sound/khaen_narration.mp3'),
+      ponglang: new Audio('Sound/ponglang_narration.mp3'),
+      huen: new Audio('Sound/huen_narration.mp3'),
+      krabue: new Audio('Sound/krabue_narration.mp3'),
+      jappey: new Audio('Sound/jappey_narration.mp3'),
+      sawkantrum: new Audio('Sound/sawkantrum_narration.mp3'),
+      klongkantrum: new Audio('Sound/klongkantrum_narration.mp3'),
+      pi_salai: new Audio('Sound/pi_salai_narration.mp3')
+    };
+
     function playSound(instrument) {
       Object.values(audioFiles).forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+      Object.values(narrationFiles).forEach(audio => {
         audio.pause();
         audio.currentTime = 0;
       });
@@ -327,6 +443,26 @@
 
     function stopSound() {
       Object.values(audioFiles).forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+    }
+
+    function playNarration(instrument) {
+      Object.values(audioFiles).forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+      Object.values(narrationFiles).forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+      narrationFiles[instrument].currentTime = 0;
+      narrationFiles[instrument].play();
+    }
+
+    function stopNarration() {
+      Object.values(narrationFiles).forEach(audio => {
         audio.pause();
         audio.currentTime = 0;
       });
