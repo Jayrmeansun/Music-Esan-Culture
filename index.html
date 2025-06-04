@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +8,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="https://unpkg.com/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
   <script src="https://unpkg.com/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;700&display=swap');
     body {
       background-color: #FAF9F6;
       font-family: 'Noto Serif Thai', sans-serif;
       color: #333333;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .dark body {
+      background-color: #1F2937;
+      color: #F9FAFB;
     }
     .instrument-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -24,9 +31,24 @@
       max-width: 600px;
       margin: 0 auto;
     }
+    .dark .instrument-card {
+      background: linear-gradient(145deg, #374151, #4B5563);
+    }
     .instrument-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .instrument-card h2 {
+      color: #A33F1F;
+    }
+    .dark .instrument-card h2 {
+      color: #F9FAFB;
+    }
+    .instrument-card p {
+      color: #4B5EAA;
+    }
+    .dark .instrument-card p {
+      color: #F9FAFB;
     }
     .model-container {
       width: 100%;
@@ -41,7 +63,12 @@
     }
     .play-btn, .stop-btn, .play-narration-btn, .stop-narration-btn {
       background: linear-gradient(to right, #2E7D32, #4CAF50);
+      color: #FFFFFF;
       transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .dark .play-btn, .dark .stop-btn, .dark .play-narration-btn, .dark .stop-narration-btn {
+      background: linear-gradient(to right, #EF6C00, #FF8C00);
+      color: #FFFFFF;
     }
     .play-btn:hover, .stop-btn:hover, .play-narration-btn:hover, .stop-narration-btn:hover {
       background: linear-gradient(to right, #EF6C00, #FF8C00);
@@ -51,6 +78,55 @@
       position: sticky;
       top: 0;
       z-index: 10;
+      transition: opacity 1s ease-in-out;
+      background: #A33F1F;
+      color: #FFFFFF;
+    }
+    .dark header {
+      background: #1F2937;
+      color: #FFFFFF;
+    }
+    header h1, header p {
+      color: #FFFFFF;
+    }
+    #darkModeToggle {
+      background: #FFFFFF;
+      color: #A33F1F;
+    }
+    .dark #darkModeToggle {
+      background: #4B5563;
+      color: #F9FAFB;
+    }
+    #scrollTop {
+      display: none;
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #A33F1F;
+      color: #FFFFFF;
+      padding: 0.75rem;
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    #scrollTop:hover {
+      background: #EF6C00;
+      transform: translateY(-2px);
+    }
+    .dark #scrollTop {
+      background: #EF6C00;
+      color: #FFFFFF;
+    }
+    .dark #scrollTop:hover {
+      background: #FF8C00;
+    }
+    footer {
+      background: #A33F1F;
+      color: #FFFFFF;
+    }
+    .dark footer {
+      background: #1F2937;
+      color: #FFFFFF;
     }
     @media (max-width: 640px) {
       .instrument-card {
@@ -79,18 +155,27 @@
 </head>
 <body class="min-h-screen flex flex-col">
   <!-- Header -->
-  <header class="bg-[#A33F1F] text-white py-8 text-center shadow-lg">
+  <header class="bg-[#A33F1F] text-white py-8 text-center shadow-lg" data-aos="fade-in">
     <h1 class="text-5xl font-bold">เครื่องดนตรีอีสาน</h1>
     <p class="mt-3 text-xl">สำรวจมรดกทางวัฒนธรรมผ่านเสียงดนตรีแห่งอีสาน</p>
+    <button id="darkModeToggle" class="mt-4 bg-white text-[#A33F1F] px-4 py-2 rounded-full flex items-center mx-auto" aria-label="สลับโหมดมืด/สว่าง">
+      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+      <span>สลับโหมด</span>
+    </button>
   </header>
 
   <!-- Main Content -->
   <main class="container mx-auto px-6 py-12">
     <div class="grid grid-cols-1 gap-8">
-      <!-- Instrument Card (พิณ) -->
-      <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
+      <!-- พิณ -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="800">
         <div class="relative">
-          <div class="model-container" data-model="Models/phin.glb"></div>
+          <div class="model-container" data-model="Models/phin.glb">
+            <div class="absolute top-3 left-3 flex space-x-2">
+              <button onclick="toggleBackground(this)" class="bg-white p-2 rounded-full shadow" aria-label="เปลี่ยนสีพื้นหลัง">🌈</button>
+              <button onclick="resetCamera(this)" class="bg-white p-2 rounded-full shadow" aria-label="รีเซ็ตมุมมอง">🔄</button>
+            </div>
+          </div>
           <div class="absolute bottom-3 right-3 flex space-x-3">
             <button onclick="playSound('phin')" class="play-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นเสียงพิณ">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
@@ -116,10 +201,15 @@
         </div>
       </div>
 
-      <!-- Instrument Card (โหวด) -->
-      <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
+      <!-- โหวด -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="800">
         <div class="relative">
-          <div class="model-container" data-model="Models/wode.glb"></div>
+          <div class="model-container" data-model="Models/wode.glb">
+            <div class="absolute top-3 left-3 flex space-x-2">
+              <button onclick="toggleBackground(this)" class="bg-white p-2 rounded-full shadow" aria-label="เปลี่ยนสีพื้นหลัง">🌈</button>
+              <button onclick="resetCamera(this)" class="bg-white p-2 rounded-full shadow" aria-label="รีเซ็ตมุมมอง">🔄</button>
+            </div>
+          </div>
           <div class="absolute bottom-3 right-3 flex space-x-3">
             <button onclick="playSound('wot')" class="play-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นเสียงโหวด">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
@@ -145,10 +235,15 @@
         </div>
       </div>
 
-      <!-- Instrument Card (แคน) -->
-      <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
+      <!-- แคน -->
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="800">
         <div class="relative">
-          <div class="model-container" data-model="Models/kane.glb"></div>
+          <div class="model-container" data-model="Models/kane.glb">
+            <div class="absolute top-3 left-3 flex space-x-2">
+              <button onclick="toggleBackground(this)" class="bg-white p-2 rounded-full shadow" aria-label="เปลี่ยนสีพื้นหลัง">🌈</button>
+              <button onclick="resetCamera(this)" class="bg-white p-2 rounded-full shadow" aria-label="รีเซ็ตมุมมอง">🔄</button>
+            </div>
+          </div>
           <div class="absolute bottom-3 right-3 flex space-x-3">
             <button onclick="playSound('khaen')" class="play-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นเสียงแคน">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
@@ -175,9 +270,14 @@
       </div>
 
       <!-- โปงลาง -->
-      <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="800">
         <div class="relative">
-          <div class="model-container" data-model="Models/ponglang.glb"></div>
+          <div class="model-container" data-model="Models/ponglang.glb">
+            <div class="absolute top-3 left-3 flex space-x-2">
+              <button onclick="toggleBackground(this)" class="bg-white p-2 rounded-full shadow" aria-label="เปลี่ยนสีพื้นหลัง">🌈</button>
+              <button onclick="resetCamera(this)" class="bg-white p-2 rounded-full shadow" aria-label="รีเซ็ตมุมมอง">🔄</button>
+            </div>
+          </div>
           <div class="absolute bottom-3 right-3 flex space-x-3">
             <button onclick="playSound('ponglang')" class="play-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นเสียงโปงลาง">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
@@ -204,9 +304,14 @@
       </div>
 
       <!-- หืน -->
-      <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="800">
         <div class="relative">
-          <div class="model-container" data-model="Models/huen.glb"></div>
+          <div class="model-container" data-model="Models/huen.glb">
+            <div class="absolute top-3 left-3 flex space-x-2">
+              <button onclick="toggleBackground(this)" class="bg-white p-2 rounded-full shadow" aria-label="เปลี่ยนสีพื้นหลัง">🌈</button>
+              <button onclick="resetCamera(this)" class="bg-white p-2 rounded-full shadow" aria-label="รีเซ็ตมุมมอง">🔄</button>
+            </div>
+          </div>
           <div class="absolute bottom-3 right-3 flex space-x-3">
             <button onclick="playSound('huen')" class="play-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นเสียงหืน">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
@@ -233,9 +338,14 @@
       </div>
 
       <!-- จะเข้กระบือ -->
-      <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="800">
         <div class="relative">
-          <div class="model-container" data-model="Models/krabue.glb"></div>
+          <div class="model-container" data-model="Models/krabue.glb">
+            <div class="absolute top-3 left-3 flex space-x-2">
+              <button onclick="toggleBackground(this)" class="bg-white p-2 rounded-full shadow" aria-label="เปลี่ยนสีพื้นหลัง">🌈</button>
+              <button onclick="resetCamera(this)" class="bg-white p-2 rounded-full shadow" aria-label="รีเซ็ตมุมมอง">🔄</button>
+            </div>
+          </div>
           <div class="absolute bottom-3 right-3 flex space-x-3">
             <button onclick="playSound('krabue')" class="play-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นเสียงจะเข้กระบือ">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
@@ -262,9 +372,14 @@
       </div>
 
       <!-- กระจับปี่ -->
-      <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="800">
         <div class="relative">
-          <div class="model-container" data-model="Models/kachappi.glb"></div>
+          <div class="model-container" data-model="Models/kachappi.glb">
+            <div class="absolute top-3 left-3 flex space-x-2">
+              <button onclick="toggleBackground(this)" class="bg-white p-2 rounded-full shadow" aria-label="เปลี่ยนสีพื้นหลัง">🌈</button>
+              <button onclick="resetCamera(this)" class="bg-white p-2 rounded-full shadow" aria-label="รีเซ็ตมุมมอง">🔄</button>
+            </div>
+          </div>
           <div class="absolute bottom-3 right-3 flex space-x-3">
             <button onclick="playSound('jappey')" class="play-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นเสียงกระจับปี่">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
@@ -276,7 +391,7 @@
             </button>
           </div>
         </div>
-        <h2 class="text-2xl font-bold mt-5 text-[#A33F1F]">กระจับปี่</h2>
+        <h2 class="text- mosaic-2xl font-bold mt-5 text-[#A33F1F]">กระจับปี่</h2>
         <p class="text-[#4B5EAA] mt-3 leading-relaxed">เป็นเครื่องดนตรีประเภทดีด โดยใช้กระที่ทำจากเขาสัตว์ กล่องเสียงทำด้วยไม้ขนุนหรือไม้สัก ส่วนปลายสุดมีรู ๒ รู ใช้ใส่ลูกบิดและร้อยสาย เมื่อบรรเลงจะตั้งขนานกับลำตัว มือขวาจับกระสำหรับดีด มือซ้ายกดที่สายเพื่อเปลี่ยนระดับเสียง</p>
         <div class="mt-4 flex space-x-3">
           <button onclick="playNarration('jappey')" class="play-narration-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นคำบรรยายกระจับปี่">
@@ -291,9 +406,14 @@
       </div>
 
       <!-- ซอกันตรึม -->
-      <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="800">
         <div class="relative">
-          <div class="model-container" data-model="Models/kantrum.glb"></div>
+          <div class="model-container" data-model="Models/kantrum.glb">
+            <div class="absolute top-3 left-3 flex space-x-2">
+              <button onclick="toggleBackground(this)" class="bg-white p-2 rounded-full shadow" aria-label="เปลี่ยนสีพื้นหลัง">🌈</button>
+              <button onclick="resetCamera(this)" class="bg-white p-2 rounded-full shadow" aria-label="รีเซ็ตมุมมอง">🔄</button>
+            </div>
+          </div>
           <div class="absolute bottom-3 right-3 flex space-x-3">
             <button onclick="playSound('sawkantrum')" class="play-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นเสียงซอกันตรึม">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
@@ -320,9 +440,14 @@
       </div>
 
       <!-- กลองกันตรึม -->
-      <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="800">
         <div class="relative">
-          <div class="model-container" data-model="Models/klongkantrum.glb"></div>
+          <div class="model-container" data-model="Models/klongkantrum.glb">
+            <div class="absolute top-3 left-3 flex space-x-2">
+              <button onclick="toggleBackground(this)" class="bg-white p-2 rounded-full shadow" aria-label="เปลี่ยนสีพื้นหลัง">🌈</button>
+              <button onclick="resetCamera(this)" class="bg-white p-2 rounded-full shadow" aria-label="รีเซ็ตมุมมอง">🔄</button>
+            </div>
+          </div>
           <div class="absolute bottom-3 right-3 flex space-x-3">
             <button onclick="playSound('klongkantrum')" class="play-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นเสียงกลองกันตรึม">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
@@ -349,9 +474,14 @@
       </div>
 
       <!-- ปี่ไสล -->
-      <div class="instrument-card bg-white rounded-lg shadow-lg p-6">
+      <div class="instrument-card bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="800">
         <div class="relative">
-          <div class="model-container" data-model="Models/pi_salai.glb"></div>
+          <div class="model-container" data-model="Models/pi_salai.glb">
+            <div class="absolute top-3 left-3 flex space-x-2">
+              <button onclick="toggleBackground(this)" class="bg-white p-2 rounded-full shadow" aria-label="เปลี่ยนสีพื้นหลัง">🌈</button>
+              <button onclick="resetCamera(this)" class="bg-white p-2 rounded-full shadow" aria-label="รีเซ็ตมุมมอง">🔄</button>
+            </div>
+          </div>
           <div class="absolute bottom-3 right-3 flex space-x-3">
             <button onclick="playSound('pi_salai')" class="play-btn text-white px-5 py-2.5 rounded-full flex items-center space-x-2" aria-label="เล่นเสียงปี่ไสล">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8 5v10l10-5L8 5z"/></svg>
@@ -378,14 +508,9 @@
       </div>
 
       <!-- QR Code Card -->
-      <div class="instrument-card bg-white rounded-xl shadow-xl p-6 max-w-xs mx-auto transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="instrument-card bg-white rounded-xl shadow-xl p-6 max-w-xs mx-auto transition-transform duration-300 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-duration="800">
         <div class="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
-          <img 
-            src="Qr/Models_3D.png" 
-            alt="QR Code to view 3D instrument model" 
-            class="w-32 h-32 object-contain"
-            loading="lazy"
-          />
+          <img src="Qr/Models_3D.png" alt="QR Code to view 3D instrument model" class="w-32 h-32 object-contain" loading="lazy"/>
         </div>
         <h2 class="text-2xl font-bold mt-5 text-[#A33F1F] text-center">QR CODE</h2>
         <p class="text-[#4B5EAA] mt-3 text-center font-medium">สแกนเพื่อชมเครื่องดนตรี</p>
@@ -393,14 +518,42 @@
     </div>
   </main>
 
+  <!-- Scroll to Top Button -->
+  <button id="scrollTop" aria-label="กลับไปด้านบน">
+    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5-5h10l-5 5z"/></svg>
+  </button>
+
   <!-- Footer -->
   <footer class="bg-[#A33F1F] text-white text-center py-6 mt-auto">
     <p class="text-lg">© 2025 เครื่องดนตรีอีสาน. สร้างสรรค์เพื่ออนุรักษ์วัฒนธรรม.</p>
     <p class="text-sm mt-2">อ้างอิงจาก กรมส่งเสริมวัฒนธรรม (สวธ.) กระทรวงวัฒนธรรม</p>
   </footer>
 
-  <!-- JavaScript for Audio Playback and 3D Model Rendering -->
+  <!-- JavaScript -->
   <script>
+    // Dark Mode Toggle
+    const toggleDarkMode = () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    };
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+    document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+
+    // AOS Initialization
+    AOS.init();
+
+    // Scroll to Top
+    const scrollTopBtn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Audio Playback
     const audioFiles = {
       phin: new Audio('Sound/phin_ne.mp3'),
       wot: new Audio('Sound/wode.mp3'),
@@ -480,6 +633,10 @@
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       container.appendChild(renderer.domElement);
 
+      // Store scene, camera, controls in container
+      container.scene = scene;
+      container.camera = camera;
+
       // Add lighting
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
       scene.add(ambientLight);
@@ -498,7 +655,7 @@
       directionalLight.shadow.normalBias = 0.05;
       scene.add(directionalLight);
 
-      // Add a circular base with wood-like texture
+      // Add circular base
       const baseGeometry = new THREE.CylinderGeometry(100, 100, 6, 32);
       const baseMaterial = new THREE.MeshStandardMaterial({
         color: 0xA33F1F,
@@ -511,7 +668,7 @@
       base.castShadow = false;
       scene.add(base);
 
-      // OrbitControls for interactivity
+      // OrbitControls
       const controls = new THREE.OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
       controls.dampingFactor = 0.05;
@@ -519,6 +676,7 @@
       controls.autoRotate = true;
       controls.autoRotateSpeed = 2.0;
       controls.enablePan = true;
+      container.controls = controls;
 
       // Load GLB model
       const loader = new THREE.GLTFLoader();
@@ -545,7 +703,7 @@
           model.position.sub(center.multiplyScalar(scale));
           model.position.y += size.y * scale * 0.2;
 
-          // Adjust camera to show the full model
+          // Adjust camera
           camera.position.set(0, size.y * scale * 0.5, maxDim * scale * 1.2);
           camera.lookAt(0, size.y * scale * 0.2, 0);
         },
@@ -572,6 +730,36 @@
         camera.updateProjectionMatrix();
       });
     });
+
+    // 3D Model Controls
+    function toggleBackground(button) {
+      const container = button.closest('.model-container');
+      const scene = container.scene;
+      const colors = [
+        0xFAF9F6, // ขาวเทาอ่อน
+        0xE5E7EB, // เทาอ่อน
+        0xD1D5DB, // เทากลาง
+        0xA33F1F, // น้ำตาลแดงอีสาน
+        0xEF6C00, // ส้มเข้ม
+        0x4B5EAA, // น้ำเงิน
+        0x2E7D32, // เขียวเข้ม
+        0x8B5CF6, // ม่วง
+        0xD97706, // ส้มอมเหลือง
+        0x374151  // เทาเข้ม
+      ];
+      const currentColor = scene.background.getHex();
+      const nextColor = colors[(colors.indexOf(currentColor) + 1) % colors.length];
+      scene.background.set(nextColor);
+    }
+
+    function resetCamera(button) {
+      const container = button.closest('.model-container');
+      const camera = container.camera;
+      const controls = container.controls;
+      camera.position.set(0, 50, 120);
+      camera.lookAt(0, 20, 0);
+      controls.update();
+    }
   </script>
 </body>
 </html>
